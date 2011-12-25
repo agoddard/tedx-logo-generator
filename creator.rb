@@ -5,6 +5,7 @@ include Magick
 
 get '/' do
   name = params['name'] ||= "Name"
+  name.sub!(name.chars.first,name.chars.first.upcase)
   erb :index, :locals => { :name => name }
 end
 
