@@ -3,23 +3,24 @@ require 'sinatra'
 include Magick
 
 
-get '/:name' do
+get '/' do
   name = params['name'] ||= "Name"
   erb :index, :locals => { :name => name }
 end
 
 
-get '/:name/:type' do
-  content_type 'image/png'
+get '/render' do
+  # content_type 'image/png'
+  content_type 'application/force-download'
   @type = params['type']
 
   def tedx(color, height, name_x, name_y, independently_x, independently_y, organized_x, organized_y)
     max_chars = 20;
 
     name = params['name'] # todo - trim the name to 20 chars, if the first 4 chars are TEDx, trim them off
-    width = name.length*84
+    width = name.length*110 #was 84
     if name_x == 420
-      width = width + 420
+      width = width + 420 #360
     end
     if (organized_x == 395 && width < 860)
       width = 860

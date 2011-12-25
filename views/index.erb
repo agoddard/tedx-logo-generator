@@ -1,5 +1,23 @@
+<!DOCTYPE html><html><body>
+<style>html,body,form,div,input,img{border:0;padding:0;margin:0;text-decoration:none;outline:0;}
+body{background: #ccc; font: bold 24px/30px verdana; padding: 15px;}
+img{margin: 0 0 15px; width: 300px;}
+.col{float: left; margin: 0 20px 0 0; width: 300px;}
+form{background: #ff5; border: solid 2px #dd3; padding: 15px 20px; margin: 0 0 20px; width: 576px;}
+input{border: solid 1px #dd3; font: 24px/30px verdana; margin: 0 0 0 10px; padding: 6px 10px; width: 200px;}
+</style>
+
+<form action="/">Type TEDx Event Name:
+<input type="text" name="name" value="<%= name %>" /></form>
+<p style="font: bold 16px/20px verdana; padding: 0 15px 0 230px;">Click to download:</p>
+<div class="col">
+
 <% (1..8).each do | type| %>
-  <% path = "/#{name}/#{type}" %>
-<%= type %><br />
-<a href=<%=path%>><img src=<%=path%> /></a><br />
+	<% if (type == 5) %>
+	  </div><div class="col">
+    <% end %>
+	<% path = "/render?name=#{name}&type=#{type}" %>
+	<a href=<%=path%>><img src=<%=path%> /></a><br />
 <% end %>
+</div>
+</body></html>
