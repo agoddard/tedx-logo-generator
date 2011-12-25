@@ -4,10 +4,9 @@ include Magick
 
 
 get '/:name/:type' do
+  content_type 'image/png'
 
-  
   @type = params['type']
-
 
   def tedx(color, height, name_x, name_y, tag1_x, tag1_y, tag2_x, tag2_y)
     max_chars = 20;
@@ -33,9 +32,35 @@ get '/:name/:type' do
     image.new_image(width, height) {self.background_color = fill}
     #insert tedx png
     #insert independently png
-    #insert organixed pnn
+    #insert organixed png
+    
+    #insert text
+    # for($i=0;$i<strlen($t);$i++) {
+    #   $value=substr($t,$i,1);
+    #   if($pval){
+    #     list($lx,$ly,$rx,$ry) = imagettfbbox(110,0,"Helvetica.ttf",$pval);
+    #     $nxpos+=$rx+3;
+    #   } else {
+    #     $nxpos=0;
+    #   }
+    #   imagettftext($img, 110, 0, $nxpos + $name_x, $name_y, ($color == "w" ? imagecolorallocate($img, 0, 0, 0) : imagecolorallocate($img, 255, 255, 255)), "Helvetica.ttf", $value);
+    #   $pval=$value;
+    # }
+    
+    text = Magick::Draw.new
+    text.font_family = 'Helvetica.ttf'
+    text.pointsize = 80
+    text.gravity = Magick::CenterGravity
+    text.annotate(image, 0,0,0,0, name) {
+      self.fill = (color == "w" ? "black" : "white")
+    }
+    
+    
+    
+    
     image.format = "png"
-    image.write("public/#{name}-#{@type}.png")
+    # image.write("public/#{name}-#{@type}.png")
+    return image.to_blob
   end
 
 
