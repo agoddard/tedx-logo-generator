@@ -1,0 +1,5 @@
+<% (1..8).each do | type| %>
+  <% path = "/#{name}/#{type}" %>
+<%= type %><br />
+<a href=<%=path%>><img src=<%=path%> /></a><br />
+<% end %>
