@@ -5,42 +5,36 @@ include Magick
 
 get '/' do
   name = params['name'] ||= "Name"
-  name.sub!(name.chars.first,name.chars.first.upcase)
+  name.sub!(name.chars.first,name.chars.first.upcase) # todo - trim the name to 20 chars, if the first 4 chars are TEDx, trim them off
   erb :index, :locals => { :name => name }
 end
 
 
 get '/render' do
-  # content_type 'image/png'
   content_type 'application/force-download'
   @type = params['type']
 
   def tedx(color, height, name_x, name_y, independently_x, independently_y, organized_x, organized_y)
     max_chars = 20;
 
-    name = params['name'] # todo - trim the name to 20 chars, if the first 4 chars are TEDx, trim them off
-    width = name.length*110 #was 84
+    name = params['name']
+    width = name.length*110
     if name_x == 420
-      width = width + 420 #360
+      width = width + 420
     end
     if (organized_x == 395 && width < 860)
       width = 860
     elsif (width < 530)
       width = 530
     end
-  
-    
+
     fill = (color == "w" ? "white" : "black")
-    
-    
   
     image = Magick::ImageList.new
     image.new_image(width, height) {self.background_color = fill}  
     image = image.composite(ImageList.new("tedx#{color}.png"), Magick::NorthWestGravity, 30, 30, Magick::AtopCompositeOp)
     image = image.composite(ImageList.new("independently#{color}.png"), Magick::SouthWestGravity, independently_x, independently_y, Magick::AtopCompositeOp)
     image = image.composite(ImageList.new("organized#{color}.png"), Magick::NorthWestGravity, organized_x, organized_y, Magick::AtopCompositeOp)
-    
-    
   
     text = Magick::Draw.new
     text.font_family = 'helvetica'
