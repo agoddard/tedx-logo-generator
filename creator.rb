@@ -31,6 +31,12 @@ get '/:name/:type' do
     image = Magick::ImageList.new
     image.new_image(width, height) {self.background_color = fill}
     #insert tedx png
+    
+    tedx_logo = Image.read("tedx#{color}.png").first
+    image = image.composite(tedx_logo, Magick::WestGravity, 0, 0, Magick::OverCompositeOp)
+    
+    
+    
     #insert independently png
     #insert organixed png
     
