@@ -27,11 +27,9 @@ get '/:name/:type' do
       width = 530
     end
   
-    if color == "w"
-      fill = "white"
-    else
-      fill = "black"
-    end
+    
+    fill = (color == "w" ? "white" : "black")
+    
     
   
     image = Magick::ImageList.new
@@ -49,7 +47,7 @@ get '/:name/:type' do
     text.text_antialias = true
     text.gravity = Magick::WestGravity
     text.annotate(image, 110,1,name_x - 20,name_y - 37, name) {
-      self.fill = (color == "w" ? "black" : "white")
+      self.fill = (fill == "white" ? "black" : "white")
     }
 
     image.format = "png"
