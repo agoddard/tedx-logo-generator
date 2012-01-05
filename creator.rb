@@ -5,12 +5,12 @@ include Magick
 
 get '/' do
   name = params['name'] ||= "Name"
-  name.sub!(name.chars.first,name.chars.first.upcase) # todo - trim the name to 20 chars, if the first 4 chars are TEDx, trim them off
-  erb :index, :locals => { :name => name }
+  name.sub!(name.chars.first,name.chars.first.upcase)
+  erb :index, :locals => { :name => name.gsub('TEDx','') }
 end
 
 
-get '/render' do
+get '/TEDx:name:type.png' do
   content_type 'application/force-download'
   @type = params['type']
 

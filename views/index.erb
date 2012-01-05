@@ -16,7 +16,7 @@ input{border: solid 1px #dd3; font: 24px/30px verdana; margin: 0 0 0 10px; paddi
 	<% if (type == 5) %>
 	  </div><div class="col">
     <% end %>
-	<% path = "/render?name=#{name}&type=#{type}" %>
+	<% path = "/TEDx#{name}#{type}.png" %>
 	<a href=<%=path%>><img src=<%=path%> /></a><br />
 <% end %>
 </div>
